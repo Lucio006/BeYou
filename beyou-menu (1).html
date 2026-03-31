@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeYou Estètica Integral – Menú de Servicios</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-beige: #e8dcc8;
+    --dark-brown: #3a2e24;
+    --gold: #c9a96e;
+    --gold-light: #e8c88a;
+    --text-dark: #2d2420;
+    --text-mid: #6b5c4e;
+    --white: #fdfaf5;
+    --accent: #b8956a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Lato', sans-serif;
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── LANG SELECTOR SCREEN ── */
+  #lang-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(160deg, #f9f4ec 0%, #ede4d4 60%, #ddd0bc 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #lang-screen::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  #lang-screen::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.13) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .logo-wrap {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .logo-wrap .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 10vw, 4.5rem);
+    color: var(--dark-brown);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .logo-wrap .brand span {
+    color: var(--gold);
+  }
+  .logo-wrap .sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-top: 0.4rem;
+  }
+
+  .choose-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 3.5vw, 1.3rem);
+    color: var(--text-mid);
+    margin-bottom: 2rem;
+    text-align: center;
+    animation: fadeDown 0.7s 0.15s ease both;
+  }
+
+  .lang-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    max-width: 420px;
+    animation: fadeUp 0.7s 0.25s ease both;
+  }
+
+  .lang-btn {
+    background: var(--white);
+    border: 2px solid var(--warm-beige);
+    border-radius: 16px;
+    padding: 1.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .lang-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,169,110,0.12), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .lang-btn:hover, .lang-btn:focus {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(58,46,36,0.13);
+  }
+  .lang-btn:hover::after { opacity: 1; }
+  .lang-btn:active { transform: translateY(-1px); }
+
+  .lang-flag {
+    font-size: 2.6rem;
+    line-height: 1;
+  }
+  .lang-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--dark-brown);
+    font-weight: 700;
+  }
+  .lang-native {
+    font-size: 0.7rem;
+    color: var(--text-mid);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .contact-bar {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .contact-bar a {
+    color: var(--text-mid);
+    font-size: 0.78rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .contact-bar a:hover { color: var(--gold); }
+
+  /* ── MENU CONTENT ── */
+  #menu-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .menu-header {
+    background: linear-gradient(160deg, #3a2e24 0%, #5a4535 100%);
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-header::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.2) 0%, transparent 70%);
+  }
+
+  .back-btn {
+    position: absolute;
+    top: 1.2rem; left: 1.2rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { background: rgba(201,169,110,0.25); }
+
+  .lang-flag-header {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .menu-header .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+  .menu-header .brand span { color: var(--gold); }
+  .menu-header .sub {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-top: 0.2rem;
+  }
+
+  .header-contacts {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .header-contacts span {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    display: flex; align-items: center; gap: 0.3rem;
+  }
+
+  .menu-body {
+    padding: 1.5rem 1rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--dark-brown);
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-title .icon { font-size: 1.1rem; }
+
+  .service-list {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(58,46,36,0.07);
+  }
+
+  .service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.75rem 1.1rem;
+    border-bottom: 1px solid var(--warm-beige);
+    gap: 0.5rem;
+  }
+  .service-item:last-child { border-bottom: none; }
+  .service-item:nth-child(even) { background: rgba(232,220,200,0.25); }
+
+  .service-name {
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    line-height: 1.3;
+    flex: 1;
+  }
+  .service-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+  }
+  .service-duration {
+    font-size: 0.7rem;
+    color: var(--text-mid);
+    white-space: nowrap;
+  }
+  .service-price {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    min-width: 40px;
+    text-align: right;
+  }
+
+  /* Rituals */
+  .ritual-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.2rem 1.2rem 1rem;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 2px 12px rgba(58,46,36,0.07);
+  }
+  .ritual-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--dark-brown);
+    margin-bottom: 0.1rem;
+  }
+  .ritual-price {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .ritual-desc {
+    font-size: 0.78rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ── TRIPTYCH SECTION ── */
+  .triptych-section {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+  }
+  .triptych-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    text-align: center;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+  .triptych-thumbs {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+  .triptych-thumb {
+    flex: 1;
+    max-width: 140px;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--warm-beige);
+    box-shadow: 0 3px 12px rgba(58,46,36,0.1);
+    transition: all 0.22s ease;
+    position: relative;
+    background: var(--white);
+  }
+  .triptych-thumb:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(58,46,36,0.18);
+  }
+  .triptych-thumb img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    display: block;
+  }
+  .triptych-thumb .thumb-label {
+    font-size: 0.62rem;
+    text-align: center;
+    padding: 0.3rem 0.4rem;
+    color: var(--text-mid);
+    letter-spacing: 0.04em;
+    background: var(--white);
+  }
+  .triptych-thumb .zoom-icon {
+    position: absolute;
+    top: 4px; right: 4px;
+    background: rgba(58,46,36,0.55);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    padding: 1px 4px;
+    pointer-events: none;
+  }
+
+  /* ── LIGHTBOX ── */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20,14,10,0.88);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
+  }
+  #lightbox.open { display: flex; }
+  #lightbox-img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    object-fit: contain;
+  }
+  #lightbox-close {
+    position: fixed;
+    top: 1rem; right: 1rem;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  #lightbox-close:hover { background: rgba(255,255,255,0.3); }
+  #lightbox-nav {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.6rem;
+  }
+  #lightbox-nav button {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+  }
+  #lightbox-nav button:hover { background: rgba(201,169,110,0.4); }
+  #lightbox-nav button:disabled { opacity: 0.3; cursor: default; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LANGUAGE SELECTOR ══════════════ -->
+<div id="lang-screen">
+  <div class="logo-wrap">
+    <div class="brand">Be<span>Y</span>ou</div>
+    <div class="sub">Estètica Integral</div>
+  </div>
+
+  <p class="choose-label">Selecciona tu idioma · Choose your language</p>
+
+  <div class="lang-grid">
+    <button class="lang-btn" onclick="showMenu('es')">
+      <span class="lang-flag">🇪🇸</span>
+      <span class="lang-name">Español</span>
+      <span class="lang-native">Spanish</span>
+    </button>
+    <button class="lang-btn" onclick="showMenu('ca')">
+      <span class="lang-flag" style="display:inline-flex;align-items:center;justify-content:center;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="48" height="32" style="border-radius:4px;display:block;">
+          <rect width="900" height="600" fill="#FCDD09"/>
+          <rect y="0" width="900" height="75" fill="#DA121A"/>
+          <rect y="150" width="900" height="75" fill="#DA121A"/>
+          <rect y="300" width="900" height="75" fill="#DA121A"/>
+          <rect y="450" width="900" height="75" fill="#DA121A"/>
+          <rect y="525" width="900" height="75" fill="#DA121A"/>
+        </svg>
+      </span>
+      <span class="lang-name">Català</span>
+      <span class="lang-native">Catalan</span>
+    </button>
+    <button class="lang-btn" onclick="showMenu('en')">
+      <span class="lang-flag">🇬🇧</span>
+      <span class="lang-name">English</span>
+      <span class="lang-native">English</span>
+    </button>
+    <button class="lang-btn" onclick="showMenu('fr')">
+      <span class="lang-flag">🇫🇷</span>
+      <span class="lang-name">Français</span>
+      <span class="lang-native">French</span>
+    </button>
+    <button class="lang-btn" onclick="showMenu('nl')" style="grid-column: span 2;">
+      <span class="lang-flag">🇳🇱</span>
+      <span class="lang-name">Nederlands</span>
+      <span class="lang-native">Dutch</span>
+    </button>
+  </div>
+
+  <div class="contact-bar">
+    <a href="tel:616962307">📞 616 96 23 07</a>
+    <a href="#">📟 Ext. 2515</a>
+    <a href="https://instagram.com/beyou_estetica_" target="_blank">📸 @beyou_estetica_</a>
+  </div>
+</div>
+
+<!-- ══════════════ MENU CONTENT ══════════════ -->
+<div id="menu-content">
+  <div class="menu-header">
+    <a class="back-btn" onclick="goBack()" title="Volver">←</a>
+    <div class="lang-flag-header" id="hdr-flag"></div>
+    <div class="brand">Be<span>Y</span>ou</div>
+    <div class="sub">Estètica Integral</div>
+    <div class="header-contacts">
+      <span>📞 616 96 23 07</span>
+      <span>📟 Ext. 2515</span>
+      <span>📸 @beyou_estetica_</span>
+    </div>
+  </div>
+
+  <div class="menu-body" id="menu-body"></div>
+</div>
+
+<script>
+const data = {
+  es: {
+    flag: '🇪🇸',
+    sections: [
+      {
+        title: 'Peluquería', icon: '✂️',
+        type: 'list',
+        items: [
+          { name: 'Lavar y peinar – Pelo corto', price: '18€' },
+          { name: 'Lavar y peinar – Pelo medio', price: '25€' },
+          { name: 'Lavar y peinar – Pelo largo desde', price: '35€' },
+          { name: 'Corte a máquina infantil', price: '12€' },
+          { name: 'Corte hombre', price: '16€' },
+          { name: 'Lavar y cortar mujer', price: '20€' },
+          { name: 'Corte de bebé (0-2 años)', price: '10€' },
+          { name: 'Flequillo', price: '5€' },
+          { name: 'Semirecogido desde', price: '40€' },
+          { name: 'Recogido de fiesta desde', price: '45€' },
+          { name: 'Color Wella raiz', price: '35€' },
+          { name: 'Color Wella todo el pelo', price: '45€' },
+          { name: 'Mechas pelo corto desde', price: '48€' },
+          { name: 'Mechas media melena desde', price: '60€' },
+          { name: 'Mechas melena larga desde', price: '75€' },
+          { name: 'Matiz', price: '20€' },
+          { name: 'Trenzas africanas desde', price: '10€' },
+          { name: 'Tratamiento hidratante desde', price: '25€' },
+        ]
+      },
+      {
+        title: 'Masajes', icon: '💆',
+        type: 'list',
+        items: [
+          { name: 'Masaje deportivo localizado', duration: '20 min.', price: '30€' },
+          { name: 'Masaje integral', duration: '45 min.', price: '60€' },
+          { name: 'Masaje piedras volcánicas', duration: '45 min.', price: '70€' },
+          { name: 'Ayurveda', duration: '50 min.', price: '80€' },
+          { name: 'Drenaje linfático', duration: '50 min.', price: '70€' },
+        ]
+      },
+      {
+        title: 'Rituales', icon: '🌿',
+        type: 'rituals',
+        items: [
+          { name: 'Tratamiento Be You', price: '80€', desc: 'Masaje relajante con piedras calientes complementado con higiene facial.' },
+          { name: 'Peeling corporal', price: '80€', desc: 'Eliminación de células muertas e hidratación corporal mediante masaje relajante.' },
+          { name: 'Tratamiento Be You especial verano', price: '105€', desc: 'Peeling corporal complementado con masaje relajante e higiene básica.' },
+          { name: 'Maderoterapia', price: '100€', desc: 'Trata sobre todo la celulitis, mejorando su apariencia y eliminándola paulatinamente a lo largo de las sesiones. El efecto inmediato es de piernas ligeras y de una piel más tersa y firme.' },
+        ]
+      },
+      {
+        title: 'Depilación femenina', icon: '🪷',
+        type: 'list',
+        items: [
+          { name: 'Diseño de cejas', duration: '15 min.', price: '10€' },
+          { name: 'Piernas completas', price: '30€' },
+          { name: 'Medias piernas', duration: '30 min.', price: '15€' },
+          { name: 'Piernas enteras + pubis', duration: '30 min.', price: '40€' },
+          { name: 'Piernas + pubis + axilas', duration: '45 min.', price: '50€' },
+          { name: 'Depilación completa', duration: '50 min.', price: '60€' },
+          { name: 'Depilación labio', price: '5€' },
+          { name: 'Depilación labio + cejas', price: '15€' },
+          { name: 'Depilación pubis', price: '17€' },
+          { name: 'Depilación pubis completo', price: '22€' },
+        ]
+      },
+      {
+        title: 'Depilación masculina', icon: '🧔',
+        type: 'list',
+        items: [
+          { name: 'Diseño de cejas', duration: '15 min.', price: '10€' },
+          { name: 'Piernas enteras', duration: '45 min.', price: '50€' },
+          { name: 'Pecho o espalda', duration: '30 min.', price: '30€' },
+          { name: 'Brazos', duration: '10 min.', price: '15€' },
+          { name: 'Pecho o espalda + brazos', duration: '45 min.', price: '45€' },
+          { name: 'Axilas', duration: '10 min.', price: '10€' },
+          { name: 'Cejas', price: '10€' },
+          { name: 'Cejas + nariz + orejas', price: '15€' },
+        ]
+      },
+      {
+        title: 'Tratamientos faciales', icon: '✨',
+        type: 'list',
+        items: [
+          { name: 'Limpieza cutis, peeling, ultrasonido + tratamiento según piel', duration: '55 min.', price: '75€' },
+          { name: 'Tratamiento antiedad + peeling ultrasonido + radiofrecuencia', duration: '75 min.', price: '100€' },
+        ]
+      },
+      {
+        title: 'Uñas acrílicas', icon: '💅',
+        type: 'list',
+        items: [
+          { name: 'Nail art', price: '+1€ c/u' },
+          { name: 'Extensión de uñas con acrílico + esmaltado semipermanente', price: '50€' },
+          { name: 'Relleno de acrílico + esmaltado semipermanente', price: '40€' },
+          { name: 'Reconstrucción de una uña', price: '7€' },
+          { name: 'Retirar semipermanente de uñas', price: '10€' },
+          { name: 'Retirar acrílico de uñas', price: '15€' },
+        ]
+      },
+      {
+        title: 'Manicuras y pedicuras', icon: '🌸',
+        type: 'list',
+        items: [
+          { name: 'Manicura infantil (3-11 años)', price: '15€' },
+          { name: 'Pedicura infantil (3-11 años)', price: '15€' },
+          { name: 'Manicura + esmaltado normal', price: '25€' },
+          { name: 'Manicura + semipermanente', price: '30€' },
+          { name: 'Man. + S.P. + nail art', price: '30€ +1€ C/U' },
+          { name: 'Pedicura esmaltado normal', price: '30€' },
+          { name: 'Pedicura esmaltado semipermanente', price: '35€' },
+          { name: 'Ped. + S.P. + nail art', price: '35€ +1€ C/U' },
+          { name: 'Pedicura masculina', price: '30€' },
+        ]
+      },
+      {
+        title: 'Cejas y pestañas', icon: '👁️',
+        type: 'list',
+        items: [
+          { name: 'Lifting pestañas + tinte', duration: '60 min.', price: '50€' },
+          { name: 'Tinte de cejas / pestañas', duration: '15 min.', price: '15€' },
+        ]
+      },
+    ]
+  },
+
+  ca: {
+    flag: '🏴󠁥󠁳󠁣󠁴󠁿',
+    sections: [
+      {
+        title: 'Perruqueria', icon: '✂️',
+        type: 'list',
+        items: [
+          { name: 'Rentar i pentinar – Cabell curt', price: '18€' },
+          { name: 'Rentar i pentinar – Mitja cabellera', price: '25€' },
+          { name: 'Rentar i pentinar – Cabellera llarga des de', price: '35€' },
+          { name: 'Tall a màquina infantil', price: '12€' },
+          { name: 'Tall home', price: '16€' },
+          { name: 'Rentar i tallar dona', price: '20€' },
+          { name: 'Tall de nadó (0-2 anys)', price: '10€' },
+          { name: 'Serrell', price: '5€' },
+          { name: 'Semirecollit des de', price: '40€' },
+          { name: 'Recollit de festa des de', price: '45€' },
+          { name: 'Color Wella arrel', price: '35€' },
+          { name: 'Color Wella tot el cabell des de', price: '45€' },
+          { name: 'Metxes cabell curt des de', price: '48€' },
+          { name: 'Metxes mitja cabellera des de', price: '60€' },
+          { name: 'Metxes cabellera llarga des de', price: '75€' },
+          { name: 'Matís', price: '20€' },
+          { name: 'Trenes africanes des de', price: '10€' },
+          { name: 'Tractament hidratant des de', price: '25€' },
+        ]
+      },
+      {
+        title: 'Massatges', icon: '💆',
+        type: 'list',
+        items: [
+          { name: 'Massatge esportiu localitzat', duration: '20 min.', price: '30€' },
+          { name: 'Massatge integral', duration: '45 min.', price: '60€' },
+          { name: 'Massatge pedres volcàniques', duration: '45 min.', price: '70€' },
+          { name: 'Ayurveda', duration: '50 min.', price: '80€' },
+          { name: 'Drenatge limfàtic', duration: '50 min.', price: '70€' },
+        ]
+      },
+      {
+        title: 'Rituals', icon: '🌿',
+        type: 'rituals',
+        items: [
+          { name: 'Tractament Be You', price: '80€', desc: 'Massatge relaxant amb pedres calentes complementat amb higiene facial.' },
+          { name: 'Píling corporal', price: '80€', desc: 'Eliminació de cèl·lules mortes i hidratació corporal mitjançant massatge relaxant.' },
+          { name: 'Tractament Be You especial estiu', price: '105€', desc: 'Píling corporal complementat amb massatge relaxant i higiene bàsica.' },
+          { name: 'Maderoterapia', price: '100€', desc: 'Tracta sobretot la cel·lulitis, millorant la seva aparença i eliminant-la gradualment al llarg de les sessions. L\'efecte immediat és de cames lleugeres i d\'una pell més llisa i ferma.' },
+        ]
+      },
+      {
+        title: 'Depilació femenina', icon: '🪷',
+        type: 'list',
+        items: [
+          { name: 'Disseny de celles', duration: '15 min.', price: '10€' },
+          { name: 'Cames senceres', price: '30€' },
+          { name: 'Mitges cames', duration: '30 min.', price: '15€' },
+          { name: 'Cames senceres + pubis', duration: '30 min.', price: '40€' },
+          { name: 'Cames + pubis + axil·les', duration: '45 min.', price: '50€' },
+          { name: 'Depilació completa', duration: '50 min.', price: '60€' },
+          { name: 'Depilació llavi', price: '5€' },
+          { name: 'Depilació llavi + celles', price: '15€' },
+          { name: 'Depilació pubis', price: '17€' },
+          { name: 'Depilació pubis completa', price: '22€' },
+        ]
+      },
+      {
+        title: 'Depilació masculina', icon: '🧔',
+        type: 'list',
+        items: [
+          { name: 'Disseny de celles', duration: '15 min.', price: '10€' },
+          { name: 'Cames senceres', duration: '45 min.', price: '50€' },
+          { name: 'Pit o esquena', duration: '30 min.', price: '30€' },
+          { name: 'Braços', duration: '10 min.', price: '15€' },
+          { name: 'Pit o esquena + braços', duration: '45 min.', price: '45€' },
+          { name: 'Axil·les', duration: '10 min.', price: '10€' },
+          { name: 'Celles', price: '10€' },
+          { name: 'Celles + nas + orelles', price: '15€' },
+        ]
+      },
+      {
+        title: 'Tractaments facials', icon: '✨',
+        type: 'list',
+        items: [
+          { name: 'Neteja cutis, peeling, ultrasò + tractament segons tipus de pell', duration: '55 min.', price: '75€' },
+          { name: 'Tractament antiedat + peeling ultrasò + radiofreqüència', duration: '75 min.', price: '100€' },
+        ]
+      },
+      {
+        title: 'Ungles acríliques', icon: '💅',
+        type: 'list',
+        items: [
+          { name: 'Nail art', price: '+1€ c/u' },
+          { name: 'Extensió d\'ungles amb acrílic + esmaltat semipermanent', price: '50€' },
+          { name: 'Farciment d\'acrílic + esmaltat semipermanent', price: '40€' },
+          { name: 'Reconstrucció d\'una ungla', price: '7€' },
+          { name: 'Retirar semipermanent d\'ungles', price: '10€' },
+          { name: 'Retirar acrílic d\'ungles', price: '15€' },
+        ]
+      },
+      {
+        title: 'Manicures i pedicures', icon: '🌸',
+        type: 'list',
+        items: [
+          { name: 'Manicura infantil (3-11 anys)', price: '15€' },
+          { name: 'Pedicura infantil (3-11 anys)', price: '15€' },
+          { name: 'Manicura + esmaltat normal', price: '25€' },
+          { name: 'Manicura + semipermanent', price: '30€' },
+          { name: 'Manicura + S.P. + nail art', price: '30€ +1€ C/U' },
+          { name: 'Pedicura esmaltat normal', price: '30€' },
+          { name: 'Pedicura esmaltat semipermanent', price: '35€' },
+          { name: 'Ped. + S.P. + nail art', price: '35€ +1€ C/U' },
+          { name: 'Pedicura masculina', price: '30€' },
+        ]
+      },
+      {
+        title: 'Celles i pestanyes', icon: '👁️',
+        type: 'list',
+        items: [
+          { name: 'Lífting pestanyes + tint', duration: '60 min.', price: '50€' },
+          { name: 'Tint de celles / pestanyes', duration: '15 min.', price: '15€' },
+        ]
+      },
+    ]
+  },
+
+  en: {
+    flag: '🇬🇧',
+    sections: [
+      {
+        title: 'Hairdresser', icon: '✂️',
+        type: 'list',
+        items: [
+          { name: 'Washing and styling short hair', price: '18€' },
+          { name: 'Washing & styling, medium length hair', price: '25€' },
+          { name: 'Washing & styling, long length hair from', price: '35€' },
+          { name: "Children's clipper cut", price: '12€' },
+          { name: "Men's haircut", price: '16€' },
+          { name: 'Wash and cut – Women', price: '20€' },
+          { name: 'Baby haircut (0-2 years)', price: '10€' },
+          { name: 'Bangs', price: '5€' },
+          { name: 'Half-up hairstyle from', price: '40€' },
+          { name: 'Party updo from', price: '45€' },
+          { name: 'Wella root color', price: '35€' },
+          { name: 'Wella full hair color', price: '45€' },
+          { name: 'Highlights short hair from', price: '48€' },
+          { name: 'Highlights medium hair from', price: '60€' },
+          { name: 'Highlights long hair from', price: '75€' },
+          { name: 'Toner', price: '20€' },
+          { name: 'African braids from', price: '10€' },
+          { name: 'Hydrating treatment from', price: '25€' },
+        ]
+      },
+      {
+        title: 'Massage', icon: '💆',
+        type: 'list',
+        items: [
+          { name: 'Localized sports massage', duration: '20 min.', price: '30€' },
+          { name: 'Full body massage', duration: '45 min.', price: '60€' },
+          { name: 'Hot stones massage', duration: '45 min.', price: '70€' },
+          { name: 'Ayurveda', duration: '50 min.', price: '80€' },
+          { name: 'Lymphatic drainage', duration: '50 min.', price: '70€' },
+        ]
+      },
+      {
+        title: 'Rituals', icon: '🌿',
+        type: 'rituals',
+        items: [
+          { name: 'Treatment Be You', price: '80€', desc: 'Relaxing massage with hot stones complemented with facial hygiene.' },
+          { name: 'Body peeling', price: '80€', desc: 'Elimination of dead cells, body hydration through relaxing massage.' },
+          { name: 'Special Be You summer treatment', price: '105€', desc: 'Body peeling complemented with relaxing massage and basic hygiene.' },
+          { name: 'Wood Therapy', price: '100€', desc: 'Treats all cellulite, improves its appearance and eliminates it during the sessions, the immediate effect is lighter legs, smoother and firmer skin.' },
+        ]
+      },
+      {
+        title: 'Women Depilation', icon: '🪷',
+        type: 'list',
+        items: [
+          { name: 'Eyebrows design', duration: '15 min.', price: '10€' },
+          { name: 'Full legs', price: '30€' },
+          { name: 'Lower legs', duration: '30 min.', price: '15€' },
+          { name: 'Full legs + pubic', duration: '30 min.', price: '40€' },
+          { name: 'Legs + pubic + armpits', duration: '45 min.', price: '50€' },
+          { name: 'Complete depilation', duration: '50 min.', price: '60€' },
+          { name: 'Upperlip depilation', price: '5€' },
+          { name: 'Upperlip + eyebrows depilation', price: '15€' },
+          { name: 'Pubic waxing', price: '17€' },
+          { name: 'Full pubic waxing', price: '22€' },
+        ]
+      },
+      {
+        title: 'Men Depilation', icon: '🧔',
+        type: 'list',
+        items: [
+          { name: 'Design of eyebrows', duration: '15 min.', price: '10€' },
+          { name: 'Full legs', duration: '45 min.', price: '50€' },
+          { name: 'Chest or back', duration: '30 min.', price: '30€' },
+          { name: 'Arms', duration: '10 min.', price: '15€' },
+          { name: 'Chest or back + arms', duration: '45 min.', price: '45€' },
+          { name: 'Armpits', duration: '10 min.', price: '10€' },
+          { name: 'Eyebrows', price: '10€' },
+          { name: 'Eyebrows + nose + ears', price: '15€' },
+        ]
+      },
+      {
+        title: 'Facial treatments', icon: '✨',
+        type: 'list',
+        items: [
+          { name: 'Skin cleansing, peeling, ultrasound + treatment according to skin type', duration: '55 min.', price: '75€' },
+          { name: 'Anti-ageing treatment + peeling ultra sound + radiofrequency', duration: '75 min.', price: '100€' },
+        ]
+      },
+      {
+        title: 'Acrylic nails', icon: '💅',
+        type: 'list',
+        items: [
+          { name: 'Nail art', price: '+1€ each' },
+          { name: 'Extension of acrylic nails and gel nail polish', price: '50€' },
+          { name: 'Filling of acrylic nails and gel nail polish', price: '40€' },
+          { name: 'Repair of 1 nail', price: '7€' },
+          { name: 'Remove of gel nail polish', price: '10€' },
+          { name: 'Remove of acrylic nails', price: '15€' },
+        ]
+      },
+      {
+        title: 'Manicure and pedicure', icon: '🌸',
+        type: 'list',
+        items: [
+          { name: 'Kids manicure (3-11 years)', price: '15€' },
+          { name: 'Kids pedicure (3-11 years)', price: '15€' },
+          { name: 'Manicure + regular nail polish', price: '25€' },
+          { name: 'Manicure + gel nail polish', price: '30€' },
+          { name: 'Man. + gel nail polish + nail art', price: '30€ +1€ C/U' },
+          { name: 'Pedicure + regular nail polish', price: '30€' },
+          { name: 'Pedicure + gel nail polish', price: '35€' },
+          { name: 'Ped. + gel nail polish + nail art', price: '35€ +1€ C/U' },
+          { name: 'Masculine pedicure', price: '30€' },
+        ]
+      },
+      {
+        title: 'Eyebrows and eyelashes', icon: '👁️',
+        type: 'list',
+        items: [
+          { name: 'Eyelash lift + dyeing', duration: '60 min.', price: '50€' },
+          { name: 'Eyebrows or eyelashes dyeing', duration: '15 min.', price: '15€' },
+        ]
+      },
+    ]
+  },
+
+  fr: {
+    flag: '🇫🇷',
+    sections: [
+      {
+        title: 'Coiffeur', icon: '✂️',
+        type: 'list',
+        items: [
+          { name: 'Lavage et coiffage des cheveux courts', price: '18€' },
+          { name: 'Lavage et coiffage des cheveux mi-longs', price: '25€' },
+          { name: 'Lavage et coiffage des cheveux longs à partir de', price: '35€' },
+          { name: 'Coupe tondeuse enfant', price: '12€' },
+          { name: 'Coupe homme', price: '16€' },
+          { name: 'Lavage et coupe femme', price: '20€' },
+          { name: 'Coupe bébé (0-2 ans)', price: '10€' },
+          { name: 'Frange', price: '5€' },
+          { name: 'Semi-attache à partir de', price: '40€' },
+          { name: 'Chignon de fête à partir de', price: '45€' },
+          { name: 'Couleur Wella racines', price: '35€' },
+          { name: 'Couleur Wella cheveux entiers', price: '45€' },
+          { name: 'Mèches cheveux courts à partir de', price: '48€' },
+          { name: 'Mèches cheveux mi-longs à partir de', price: '60€' },
+          { name: 'Mèches cheveux longs à partir de', price: '75€' },
+          { name: 'Patine', price: '20€' },
+          { name: 'Tresses africaines à partir de', price: '10€' },
+          { name: 'Soin hydratant à partir de', price: '25€' },
+        ]
+      },
+      {
+        title: 'Massage', icon: '💆',
+        type: 'list',
+        items: [
+          { name: 'Massage sportif localisé', duration: '20 min.', price: '30€' },
+          { name: 'Massage complet du corps', duration: '45 min.', price: '60€' },
+          { name: 'Massage aux pierres chaudes', duration: '45 min.', price: '70€' },
+          { name: 'Ayurveda', duration: '50 min.', price: '80€' },
+          { name: 'Drainage lymphatique', duration: '50 min.', price: '70€' },
+        ]
+      },
+      {
+        title: 'Rituels', icon: '🌿',
+        type: 'rituals',
+        items: [
+          { name: 'Be You traitement', price: '80€', desc: 'Massage relaxant aux pierres chaudes complété par une hygiène du visage.' },
+          { name: 'Gommage du corps', price: '80€', desc: 'Élimination des cellules mortes, hydratation du corps grâce à un massage relaxant.' },
+          { name: 'Traitement spécial été Be You', price: '105€', desc: 'Gommage corporel complété par un massage relaxant et une hygiène de base.' },
+          { name: 'Madérothérapie', price: '100€', desc: 'Traite toute la cellulite, améliore son aspect et l\'élimine au fil des séances, l\'effet immédiat est des jambes plus légères, une peau plus lisse et plus ferme.' },
+        ]
+      },
+      {
+        title: 'Épilation des femmes', icon: '🪷',
+        type: 'list',
+        items: [
+          { name: 'Dessin des sourcils', duration: '15 min.', price: '10€' },
+          { name: 'Jambes complètes', price: '30€' },
+          { name: 'Bas des jambes', duration: '30 min.', price: '15€' },
+          { name: 'Jambes complètes + pubis', duration: '30 min.', price: '40€' },
+          { name: 'Jambes + pubis + aisselles', duration: '45 min.', price: '50€' },
+          { name: 'Dépilation complète', duration: '50 min.', price: '60€' },
+          { name: 'Épilation lèvre supérieure', price: '5€' },
+          { name: 'Épilation lèvre supérieure + sourcils', price: '15€' },
+          { name: 'Épilation du pubis', price: '17€' },
+          { name: 'Épilation intégrale du pubis', price: '22€' },
+        ]
+      },
+      {
+        title: 'Épilation des hommes', icon: '🧔',
+        type: 'list',
+        items: [
+          { name: 'Dessin des sourcils', duration: '15 min.', price: '10€' },
+          { name: 'Jambes complètes', duration: '45 min.', price: '50€' },
+          { name: 'Poitrine ou dos', duration: '30 min.', price: '30€' },
+          { name: 'Bras', duration: '10 min.', price: '15€' },
+          { name: 'Poitrine ou dos + bras', duration: '45 min.', price: '45€' },
+          { name: 'Aisselles', duration: '10 min.', price: '10€' },
+          { name: 'Sourcils', price: '10€' },
+          { name: 'Sourcils + nez + oreilles', price: '15€' },
+        ]
+      },
+      {
+        title: 'Soins du visage', icon: '✨',
+        type: 'list',
+        items: [
+          { name: 'Nettoyage de la peau, peeling, ultrasons + traitement selon le type de peau', duration: '55 min.', price: '75€' },
+          { name: 'Traitement anti-âge + peeling ultra son + radiofréquence', duration: '75 min.', price: '100€' },
+        ]
+      },
+      {
+        title: 'Ongles en acrylique', icon: '💅',
+        type: 'list',
+        items: [
+          { name: 'Arts des ongles', price: '+1€ chaque' },
+          { name: 'Extension des ongles en acrylique et vernis à ongles en gel', price: '50€' },
+          { name: "Remplissage d'ongles en acrylique et vernis à ongles en gel", price: '40€' },
+          { name: "Réparation d'un ongle", price: '7€' },
+          { name: 'Retrait du vernis à ongles en gel', price: '10€' },
+          { name: "Enlever des ongles en acrylique", price: '15€' },
+        ]
+      },
+      {
+        title: 'Manucure et pédicure', icon: '🌸',
+        type: 'list',
+        items: [
+          { name: 'Manucure pour enfants (3-11 ans)', price: '15€' },
+          { name: 'pédicure pour enfants (3-11 ans)', price: '15€' },
+          { name: 'Manucure + vernis à ongles ordinaire', price: '25€' },
+          { name: 'Manucure + vernis à ongles en gel', price: '30€' },
+          { name: 'Man. + vernis gel + nail art', price: '30€ +1€ C/U' },
+          { name: 'Pédicure + vernis à ongles normal', price: '30€' },
+          { name: 'Pédicure + vernis à ongles en gel', price: '35€' },
+          { name: 'Péd. + vernis à ongles en gel + nail art', price: '35€ +1€ C/U' },
+          { name: 'Pédicure pour hommes', price: '30€' },
+        ]
+      },
+      {
+        title: 'Sourcils et cils', icon: '👁️',
+        type: 'list',
+        items: [
+          { name: 'Lifting des cils + teinture', duration: '60 min.', price: '50€' },
+          { name: 'Teinture des sourcils ou des cils', duration: '15 min.', price: '15€' },
+        ]
+      },
+    ]
+  },
+
+  nl: {
+    flag: '🇳🇱',
+    sections: [
+      {
+        title: 'Kapper', icon: '✂️',
+        type: 'list',
+        items: [
+          { name: 'Wassen en stylen van kort haar', price: '18€' },
+          { name: 'Wassen en stylen van halflang haar', price: '25€' },
+          { name: 'Wassen en stylen van lang haar vanaf', price: '35€' },
+          { name: 'Kinder tondeuse knipbeurt', price: '12€' },
+          { name: 'Heren knipbeurt', price: '16€' },
+          { name: 'Wassen en knippen – Dames', price: '20€' },
+          { name: 'Baby knipbeurt (0-2 jaar)', price: '10€' },
+          { name: 'Pony', price: '5€' },
+          { name: 'Half opgestoken kapsel vanaf', price: '40€' },
+          { name: 'Feestkapsel vanaf', price: '45€' },
+          { name: 'Wella uitgroei kleuren', price: '35€' },
+          { name: 'Wella volledige haarkleuring', price: '45€' },
+          { name: 'Highlights kort haar vanaf', price: '48€' },
+          { name: 'Highlights halflang haar vanaf', price: '60€' },
+          { name: 'Highlights lang haar vanaf', price: '75€' },
+          { name: 'Toner', price: '20€' },
+          { name: 'Afrikaanse vlechten vanaf', price: '10€' },
+          { name: 'Hydraterende behandeling vanaff', price: '25€' },
+        ]
+      },
+      {
+        title: 'Massages', icon: '💆',
+        type: 'list',
+        items: [
+          { name: 'Plaatselijke sportmassage', duration: '20 min.', price: '30€' },
+          { name: 'Volledige massage', duration: '45 min.', price: '60€' },
+          { name: 'Massage hot stones', duration: '45 min.', price: '70€' },
+          { name: 'Ayuruedische', duration: '50 min.', price: '80€' },
+          { name: 'Lymfatische drainage', duration: '50 min.', price: '70€' },
+        ]
+      },
+      {
+        title: 'Ritualen', icon: '🌿',
+        type: 'rituals',
+        items: [
+          { name: 'Behandeling Be You', price: '80€', desc: 'Ontspannende massage met warme stenen aangevuld met gezichtshygiëne.' },
+          { name: 'Lichaamspeeling', price: '80€', desc: 'Eliminatie van dode cellen, hydratatie van het lichaam door ontspannende massage.' },
+          { name: 'Behandeling Be You zomer speciaal', price: '105€', desc: 'Lichaamspeeling aangevuld met ontspannende massage en basishygiëne.' },
+          { name: 'Maderotherapie', price: '100€', desc: 'Bovenal behandelt het cellulitis, verbetert het de verschijning ervan en elimineert het geleidelijk tijdens de sessies. Het onmiddellijke effect is lichte benen en een gladdere en stevigere huid.' },
+        ]
+      },
+      {
+        title: 'Epileren Vrouwen', icon: '🪷',
+        type: 'list',
+        items: [
+          { name: 'Ontwerp van wenkbrauwen', duration: '15 min.', price: '10€' },
+          { name: 'Volledige benen', price: '30€' },
+          { name: 'Onderbenen', duration: '30 min.', price: '15€' },
+          { name: 'Volledige benen + Bikinilijn', duration: '30 min.', price: '40€' },
+          { name: 'Benen + bikinilijn + oksels', duration: '45 min.', price: '50€' },
+          { name: 'Volledig epileren', duration: '50 min.', price: '60€' },
+          { name: 'Epileren bovenlip', price: '5€' },
+          { name: 'Epileren bovenlip + wenkbrauwen', price: '15€' },
+          { name: 'Schaamstreek waxing', price: '17€' },
+          { name: 'Volledige schaamstreek waxing', price: '22€' },
+        ]
+      },
+      {
+        title: 'Epileren Heren', icon: '🧔',
+        type: 'list',
+        items: [
+          { name: 'Ontwerp van wenkbrauwen', duration: '15 min.', price: '10€' },
+          { name: 'Volledige benen', duration: '45 min.', price: '50€' },
+          { name: 'Borst of Rug', duration: '30 min.', price: '30€' },
+          { name: 'Armen', duration: '10 min.', price: '15€' },
+          { name: 'Borst of rug + armen', duration: '45 min.', price: '45€' },
+          { name: 'Oksels', duration: '10 min.', price: '10€' },
+          { name: 'Wenkbrauwen', price: '10€' },
+          { name: 'Wenkbrauwen + neus + oren', price: '15€' },
+        ]
+      },
+      {
+        title: 'Gezichtsbehandelingen', icon: '✨',
+        type: 'list',
+        items: [
+          { name: 'Huidreiniging, peeling, ultrageluid + behandeling volgens huidtype', duration: '55 min.', price: '75€' },
+          { name: 'Anti verouderings behandeling + peeling ultra geluids + radiofrequentie', duration: '75 min.', price: '100€' },
+        ]
+      },
+      {
+        title: 'Acrylnagels', icon: '💅',
+        type: 'list',
+        items: [
+          { name: 'Nail arts', price: '+1€ p/nagel' },
+          { name: 'Verlenging van acrylnagels en gel nagellak', price: '50€' },
+          { name: 'Opvullen acrylnagels en gel nagellak', price: '40€' },
+          { name: 'Herstel van 1 nagel', price: '7€' },
+          { name: 'Verwijderen van gel nagellak', price: '10€' },
+          { name: 'Verwijderen van acrylsnagels', price: '15€' },
+        ]
+      },
+      {
+        title: 'Manicure en pedicure', icon: '🌸',
+        type: 'list',
+        items: [
+          { name: 'Manicure voor kinderen (3-11 jaar)', price: '15€' },
+          { name: 'Pedicure voor kinderen (3-11 jaar)', price: '15€' },
+          { name: 'Manicure + normale lak', price: '25€' },
+          { name: 'Manicure + gel nagellak', price: '30€' },
+          { name: 'Manicure + gel nagellak + nail art', price: '30€ +1€ C/U' },
+          { name: 'Pedicure normale nagellak', price: '30€' },
+          { name: 'Pedicure + gel nagellak', price: '35€' },
+          { name: 'Pedicure + gel nagellak + nail art', price: '35€ +1€ C/U' },
+          { name: 'Pedicure voor mannen', price: '30€' },
+        ]
+      },
+      {
+        title: 'Wenkbrauwen en wimpers', icon: '👁️',
+        type: 'list',
+        items: [
+          { name: 'Wimperlift + verven', duration: '60 min.', price: '50€' },
+          { name: 'Wenkbrauwen of wimpers verven', duration: '15 min.', price: '15€' },
+        ]
+      },
+    ]
+  },
+};
+
+// showMenu is defined below after triptych helpers
+
+function goBack() {
+  document.getElementById('menu-content').style.display = 'none';
+  document.getElementById('lang-screen').style.display = 'flex';
+  window.scrollTo(0,0);
+}
+
+// ── TRIPTYCH CONFIG ──
+// The PDFs are embedded as base64 images rendered server-side.
+// Since we can't load PDF binary in a static page, we use the PDF file paths
+// converted to object URLs via fetch+blob, OR we render them as <object> fallback.
+// For QR scan use: host the PDFs alongside the HTML and reference by filename.
+
+const triptychFiles = {
+  es: { pages: ['ES_p1.jpg','ES_p2.jpg'], labels: ['Página 1','Página 2'] },
+  ca: { pages: ['CAT_p1.jpg','CAT_p2.jpg'], labels: ['Pàgina 1','Pàgina 2'] },
+  en: { pages: ['EN_p1.jpg','EN_p2.jpg'], labels: ['Page 1','Page 2'] },
+  fr: { pages: ['FR_p1.jpg','FR_p2.jpg'], labels: ['Page 1','Page 2'] },
+  nl: { pages: ['NL_p1.jpg','NL_p2.jpg'], labels: ['Pagina 1','Pagina 2'] },
+};
+
+// Labels per language for the triptych section title
+const triptychSectionLabels = {
+  es: 'Toca para ver el tríptico completo',
+  ca: 'Toca per veure el tríptic complet',
+  en: 'Tap to view the full brochure',
+  fr: 'Appuyez pour voir le dépliant complet',
+  nl: 'Tik om de volledige folder te bekijken',
+};
+
+const triptychPageLabels = {
+  es: ['Interior','Exterior'],
+  ca: ['Interior','Exterior'],
+  en: ['Inside','Outside'],
+  fr: ['Intérieur','Extérieur'],
+  nl: ['Binnen','Buiten'],
+};
+
+let currentLang = 'es';
+let lbImages = [];
+let lbIndex = 0;
+
+function buildTriptychSection(lang) {
+  const tf = triptychFiles[lang];
+  const pl = triptychPageLabels[lang];
+  const label = triptychSectionLabels[lang];
+  lbImages = tf.pages;
+
+  // Build two thumbnail cards pointing to the PDF images
+  // We use the PDF directly via <object> as thumbnail fallback,
+  // but for lightbox we open the image fullscreen.
+  // Since PDFs are the source files, we embed them as PDF objects for thumbnails.
+
+  const pdfFiles = { es:'ES.pdf', ca:'CAT.pdf', en:'EN.pdf', fr:'FR.pdf', nl:'NL.pdf' };
+  const pdf = pdfFiles[lang];
+
+  return `
+    <div class="triptych-section">
+      <div class="section-title" style="justify-content:center;border-bottom:none;margin-bottom:0.3rem;">
+        <span class="icon">📄</span>${lang==='es'?'Tríptico':lang==='ca'?'Tríptic':lang==='fr'?'Dépliant':lang==='nl'?'Folder':'Brochure'}
+      </div>
+      <div class="triptych-label">${label}</div>
+      <div class="triptych-thumbs">
+        ${[0,1].map(i => `
+          <div class="triptych-thumb" onclick="openLightboxPdf('${pdf}', ${i})">
+            <div class="zoom-icon">🔍</div>
+            <object data="${pdf}#page=${i+1}" type="application/pdf"
+              style="width:100%;height:90px;pointer-events:none;border:none;overflow:hidden;"
+              aria-label="${pl[i]}">
+              <div style="height:90px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;">📄</div>
+            </object>
+            <div class="thumb-label">${pl[i]}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+let currentPdf = '';
+
+function openLightboxPdf(pdfFile, pageIndex) {
+  currentPdf = pdfFile;
+  lbIndex = pageIndex;
+  const lb = document.getElementById('lightbox');
+  const iframe = document.getElementById('lightbox-iframe');
+  iframe.src = pdfFile + '#page=' + (pageIndex + 1) + '&toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateNavBtns();
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox-iframe').src = '';
+  document.body.style.overflow = '';
+}
+
+function lbPrev() {
+  if (lbIndex > 0) { lbIndex--; openLightboxPdf(currentPdf, lbIndex); }
+}
+function lbNext() {
+  if (lbIndex < 1) { lbIndex++; openLightboxPdf(currentPdf, lbIndex); }
+}
+
+function updateNavBtns() {
+  document.getElementById('lb-prev').disabled = lbIndex === 0;
+  document.getElementById('lb-next').disabled = lbIndex === 1;
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbPrev();
+  if (e.key === 'ArrowRight') lbNext();
+});
+
+// Override showMenu to also inject triptych
+function showMenu(lang) {
+  currentLang = lang;
+  const d = data[lang];
+  document.getElementById('lang-screen').style.display = 'none';
+  document.getElementById('menu-content').style.display = 'block';
+  document.getElementById('hdr-flag').textContent = d.flag;
+  if (lang === 'ca') {
+    document.getElementById('hdr-flag').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="40" height="27" style="border-radius:3px;vertical-align:middle;"><rect width="900" height="600" fill="#FCDD09"/><rect y="0" width="900" height="75" fill="#DA121A"/><rect y="150" width="900" height="75" fill="#DA121A"/><rect y="300" width="900" height="75" fill="#DA121A"/><rect y="450" width="900" height="75" fill="#DA121A"/><rect y="525" width="900" height="75" fill="#DA121A"/></svg>`;
+  }
+
+  let html = '';
+  d.sections.forEach(sec => {
+    html += `<div class="section-title"><span class="icon">${sec.icon}</span>${sec.title}</div>`;
+    if (sec.type === 'rituals') {
+      sec.items.forEach(it => {
+        html += `<div class="ritual-card">
+          <div class="ritual-name">${it.name}</div>
+          <div class="ritual-price">${it.price}</div>
+          <div class="ritual-desc">${it.desc}</div>
+        </div>`;
+      });
+    } else {
+      html += '<div class="service-list">';
+      sec.items.forEach(it => {
+        html += `<div class="service-item">
+          <span class="service-name">${it.name}</span>
+          <span class="service-meta">
+            ${it.duration ? `<span class="service-duration">${it.duration}</span>` : ''}
+            <span class="service-price">${it.price}</span>
+          </span>
+        </div>`;
+      });
+      html += '</div>';
+    }
+  });
+
+  // Add triptych thumbnails at the end
+  html += buildTriptychSection(lang);
+
+  document.getElementById('menu-body').innerHTML = html;
+  window.scrollTo(0,0);
+}
+</script>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <iframe id="lightbox-iframe"
+    src=""
+    style="width:min(95vw,800px);height:85vh;border:none;border-radius:10px;background:#fff;"
+    title="Tríptico BeYou">
+  </iframe>
+  <div id="lightbox-nav">
+    <button id="lb-prev" onclick="lbPrev()">← Anterior</button>
+    <button id="lb-next" onclick="lbNext()">Siguiente →</button>
+  </div>
+</div>
+
+</body>
+</html>
