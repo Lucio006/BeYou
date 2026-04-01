@@ -415,19 +415,26 @@
   #lightbox {
     display: none;
     position: fixed;
-    inset: 0;
-    background: rgba(20,14,10,0.88);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(20,14,10,0.92);
     z-index: 9999;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     padding: 1rem;
-    backdrop-filter: blur(4px);
-    animation: fadeIn 0.2s ease;
-    -webkit-overflow-scrolling: auto;
-    touch-action: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
   }
   #lightbox.open { display: flex; }
-  #lightbox-img { touch-action: pinch-zoom; }
+  #lightbox-img {
+    max-width: 95vw;
+    max-height: 80vh;
+    border-radius: 10px;
+    object-fit: contain;
+    display: block;
+    -webkit-user-select: none;
+    user-select: none;
+  }
   #lightbox-img {
     max-width: 100%;
     max-height: 90vh;
@@ -1243,11 +1250,13 @@ function buildTriptychSection(lang) {
 
 function openLightboxImg(index) {
   lbIndex = index;
-  const lb = document.getElementById('lightbox');
   document.getElementById('lightbox-img').src = lbImages[index];
-  lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  document.documentElement.style.overflow = 'hidden';
+  window._scrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + window._scrollY + 'px';
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.getElementById('lightbox').classList.add('open');
   updateNavBtns();
 }
 
@@ -1255,8 +1264,11 @@ function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
   const img = document.getElementById('lightbox-img');
   if (img) img.src = '';
-  document.body.style.overflow = '';
-  document.documentElement.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  window.scrollTo(0, window._scrollY || 0);
 }
 
 function lbPrev() {
